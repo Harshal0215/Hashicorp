@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terraform Random Text</title>
+</head>
+<body>
+  <h1>Terraform Random Text Snippet</h1>
+
+  <p>
+    Terraform is an infrastructure-as-code tool that lets you define cloud and on‑prem resources
+    in declarative configuration files. Instead of clicking through consoles, you describe what you want
+    (VMs, networks, databases) and Terraform figures out how to create or update it.
+  </p>
+
+  <h2>Example Concepts</h2>
+  <ul>
+    <li><strong>Providers:</strong> Plugins that talk to APIs (AWS, Azure, GCP, Kubernetes, etc.).</li>
+    <li><strong>Resources:</strong> The actual infrastructure objects, like <code>aws_instance</code> or <code>azurerm_virtual_network</code>.</li>
+    <li><strong>Variables:</strong> Parameters you can pass in to make configs reusable.</li>
+    <li><strong>Outputs:</strong> Values Terraform prints after applying, like IPs or DNS names.</li>
+    <li><strong>State:</strong> A file (often remote) that tracks what Terraform has created and its current attributes.</li>
+  </ul>
+
+  <h2>Random Terraform-flavored Text</h2>
+  <p>
+    “In a world of mutable servers, Terraform brings immutable intent.  
+    You declare a VPC with three subnets, a NAT gateway, and a route table;  
+    Terraform computes a plan, shows you the diff, and then converges reality to match your code.”
+  </p>
+
+  <p>
+    Somewhere in your <code>main.tf</code>, a <code>random_string</code> resource is quietly generating
+    unique suffixes so your S3 bucket names don’t collide. Meanwhile, a <code>for_each</code> loop
+    spins up three identical EC2 instances across availability zones, each tagged with <code>Environment = "prod"</code>.
+  </p>
+
+  <h2>Tiny Pseudo-Config</h2>
+  <pre><code>
+resource "random_string" "bucket_suffix" {
+  length  = 8
+  special = false
+  upper   = false
+}
+
+resource "aws_s3_bucket" "example" {
+  bucket = "my-app-logs-${random_string.bucket_suffix.result}"
+}
+  </code></pre>
+
+  <p>
+    Run <code>terraform init</code>, then <code>terraform plan</code> to see what will change,
+    and finally <code>terraform apply</code> to make it real. That’s the core loop:
+    write, plan, apply, repeat.
+  </p>
+</body>
+</html>
